@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <title>Keyboard Example</title>
+
+    <script type="text/javascript" charset="utf-8" src="js/cordova.js"></script>
+     <script type="text/javascript" charset="utf-8" src="js/androidwebsocket.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    // Wait for PhoneGap to load
+    //
+    function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+    // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
+    //
+    function onDeviceReady() {
+    	document.addEventListener("pause", onPause, false);
+    	document.addEventListener("resume", onResume, false);
+    	
+        var element = document.getElementById('deviceProperties');
+        element.innerHTML = 'Device Name: '     + device.name     + '<br />' +
+                            'Device Cordova: '  + device.cordova  + '<br />' +
+                            'Device Platform: ' + device.platform + '<br />' +
+                            'Device UUID: '     + device.uuid     + '<br />' +
+                            'Device Model: '    + device.model    + '<br />' +
+                            'Device Version: '  + device.version  + '<br />';
+    }
+    
+     // Handle the pause event
+    //
+    function onPause() {
+    	alert("onPause");
+    }
+    
+    // Handle the resume event
+    //
+    function onResume() {
+    	alert("onResume");
+    }
+    
+    // new socket
+	var socket = new WebSocket('ws://87.110.102.188:8880');
+			
+	// push a message after the connection is established.
+	socket.onopen = function() {
+		socket.send('Hello World');
+		alert("sent");
+	};
+			
+	// alerts message pushed from server
+	socket.onmessage = function(msg) {
+		alert(JSON.stringify(msg));
+		alert("message");
+	};
+			
+	// alert close event
+	socket.onclose = function() {
+		alert('closed');
+		alert("closed");
+	};
+    </script>
+  </head>
+  <body onload="onLoad()">
+    <p>A dialog box will report the network state.</p>
+        <input type="text" size="15"/>
+        <p id="deviceProperties">Loading device properties...</p>
+  </body>
+</html>

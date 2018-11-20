@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <title>Keyboard Example</title>
+
+    <script type="text/javascript" charset="utf-8" src="js/cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    // Wait for PhoneGap to load
+    //
+    function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+    // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
+    //
+    function onDeviceReady() {
+        document.addEventListener("hidekeyboard", onHide, false);
+        document.addEventListener("showkeyboard", onShow, false);
+        var element = document.getElementById('deviceProperties');
+        element.innerHTML = 'Device Name: '     + device.name     + '<br />' +
+                            'Device Cordova: '  + device.cordova  + '<br />' +
+                            'Device Platform: ' + device.platform + '<br />' +
+                            'Device UUID: '     + device.uuid     + '<br />' +
+                            'Device Model: '    + device.model    + '<br />' +
+                            'Device Version: '  + device.version  + '<br />';
+    }
+
+    function onHide() {
+        console.log("Got a hide keyboard");
+        alert("Got a hide keyboard");
+    }
+
+    function onShow() {
+        console.log("Got a show keyboard");
+        alert("Got a show keyboard");
+    }
+    </script>
+  </head>
+  <body onload="onLoad()">
+    <p>A dialog box will report the network state.</p>
+        <input type="text" size="15"/>
+        <p id="deviceProperties">Loading device properties...</p>
+  </body>
+</html>

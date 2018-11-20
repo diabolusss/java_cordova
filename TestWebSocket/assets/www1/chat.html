@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebSocket Chat Client</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <script type="text/javascript" src="js/prototype.js"></script>  
+	<script type="text/javascript" charset="utf-8" src="js/androidwebsocket.js"></script>
+	
+    <script type="text/javascript">
+    	document.addEventListener("deviceReady", deviceReady, false);
+    	function deviceReady() {
+		    // Now safe to use the PhoneGap API
+		    navigator.notification.alert('Hello', ok, 'Title', 'Button!'); 
+		    window.alert('');
+			alert("");
+		}
+		window.alert('');
+		window.alert("");
+		
+        String.prototype.hashCode = function(){
+            var hash = 0, i, char;
+            if (this.length == 0) return hash;
+            for (i = 0, l = this.length; i < l; i++) {
+                char  = this.charCodeAt(i);
+                hash  = ((hash<<5)-hash)+char;
+                hash |= 0; // Convert to 32bit integer
+            }
+            return hash;
+        };
+        
+        function stringGen(len){
+            var text = "USER_";
+            var charset = "ABCDEF0123456789";
+
+            for( var i=0; i < len; i++ )
+                text += charset.charAt(Math.floor(Math.random() * charset.length));
+
+            return text;
+        }     
+        
+        function get_random_color() {
+            var letters = '0123456789ABCDEF'.split('');
+            var color = '#';
+            for (var i = 0; i < 6; i++ ) {
+                color += letters[Math.round(Math.random() * 15)];
+            }
+            return color;
+        }
+        
+        function myIP() {
+            if (window.XMLHttpRequest) xmlhttp = new XMLHttpRequest();
+            else xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+            xmlhttp.open("GET","http://api.hostip.info/get_html.php",false);
+            xmlhttp.send();
+
+            hostipInfo = xmlhttp.responseText.split("\n");
+
+            for (i=0; hostipInfo.length >= i; i++) {
+                ipAddress = hostipInfo[i].split(":");
+                if ( ipAddress[0] == "IP" ) return ipAddress[1].substr(1);
+            }
+
+            return false;
+        }      
+        
+        function rainbow(numOfSteps, step) {
+            // This function generates vibrant, "evenly spaced" colours (i.e. no clustering). This is ideal for creating easily distinguishable vibrant markers in Google Maps and other apps.
+            // Adam Cole, 2011-Sept-14
+            // HSV to RBG adapted from: http://mjijackson.com/2008/02/rgb-to-hsl-and-rgb-to-hsv-color-model-conversion-algorithms-in-javascript
+            var r, g, b;
+            var h = step / numOfSteps;
+            var i = ~~(h * 6);
+            var f = h * 6 - i;
+            var q = 1 - f;
+            switch(i % 6){
+                case 0: r = 1, g = f, b = 0; break;
+                case 1: r = q, g = 1, b = 0; break;
+                case 2: r = 0, g = 1, b = f; break;
+                case 3: r = 0, g = q, b = 1; break;
+                case 4: r = f, g = 0, b = 1; break;
+                case 5: r = 1, g = 0, b = q; break;
+            }
+            var c = "#" + ("00" + (~ ~(r * 255)).toString(16)).slice(-2) + ("00" + (~ ~(g * 255)).toString(16)).slice(-2) + ("00" + (~ ~(b * 255)).toString(16)).slice(-2);
+            return (c);
+        } 
+        
+        document.observe("dom:loaded", function() {
+            function log(text) {
+                var text_color = text.split("<span color>")[1];
+                $("log").innerHTML = (!Object.isUndefined(text) && text !== null ? (text.split("<span color>")[0]).escapeHTML().fontcolor(text_color) : "null") + "<br>" +$("log").innerHTML;
+            }
+            if (!window.WebSocket) {
+                alert("FATAL: WebSocket not natively supported. This demo will not work!");
+            }
+			
+            var ws;
+
+            $("uriForm").observe("submit", function(e) {
+                e.stop();
+                ws = new WebSocket("ws://"+$F("uri")+":8880");
+                
+                //on socket open
+                ws.onopen = function() {
+                    //var _hash = stringGen(6);                    
+                    log("log:online:chat:" + get_random_color() + ":username:"+$F("username"));
+                    ws.send("online:chat:" + get_random_color() + ":username:"+$F("username"));
+                }
+                
+                //on received message
+                ws.onmessage = function(e) {
+                	var d = JSON.stringify(e);
+                	log("log: "+d);
+                    var str_arr = d.split(":");
+                    log("[" + str_arr[0] + ", " +(new Date).toTimeString().split(" ")[0]+ "] says: " + d.substr(str_arr[0].length+1) + "\n");
+                }
+                
+                //on socket close
+                ws.onclose = function() {
+                    log("[WebSocket#onclose]\n");
+                    $("uri", "connect", "username").invoke("enable");
+                    $("disconnect").disable();
+                    ws = null;
+                }
+                                
+                $("uri", "connect", "username").invoke("disable");
+                $("disconnect").enable();
+            });
+
+            $("sendForm").observe("submit", function(e) {
+                e.stop();
+                if (ws) {
+                    var textField = $("textField");
+                    ws.send($F("username")+":"+textField.value);
+                    log(
+                        "[" +$F("username")+ ", "+(new Date).toTimeString().split(" ")[0]+ "] said: " + textField.value + "\n"
+                        );
+                    textField.value = "";
+                    textField.focus();
+                }
+            });
+
+            $("disconnect").observe("click", function(e) {
+                e.stop();
+                if (ws) {
+                    ws.close();
+                    ws = null;
+                }
+            });
+        });
+        
+        function _clear_log(){
+            $("log").innerHTML="";
+            return true;
+        }
+        
+         function showAlert() {
+        navigator.notification.alert(
+            'You are the winner!',  // message
+            alertDismissed,         // callback
+            'Game Over',            // title
+            'Done'                  // buttonName
+        );
+    }
+    </script>
+  </head>
+  <body>
+      <p><a href="#" onclick="showAlert(); return false;">Show Alert</a></p>
+      <form id="uriForm">
+          Server  IP: <input type="text" id="uri" value="46.109.197.271" style="width:200px;"><br>
+          Username: <input type="text" id="username" value="username" style="width:200px;"><br> 
+          <input type="submit" id="connect" value="Connect">
+          <input type="button" id="disconnect" value="Disconnect" disabled="disabled">
+      </form>
+      
+      <br>
+      <form id="sendForm">
+          <input type="text" id="textField" value="" style="width:200px;"> 
+          <input type="submit" value="Send">
+          <input type="button" id="clear_log" onclick="_clear_log()" value="Clear"> 
+      </form>
+      
+      <br>
+      
+      <div id="log" style="word-wrap: break-word;border:1px solid black;background-color:gray;text-align:left;height:90%;width:70%;font-family:monospace;color:black;"></div>   
+    
+  </body>
+</html>
+    <script type="text/javascript">
+        $("username").value = stringGen(8); 
+        $("uri").value = myIP();
+        
+		window.alert('');
+		window.alert("");
+    </script>

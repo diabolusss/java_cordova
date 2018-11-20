@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/Lyndir/MasterPassword.git/!svn/ver/1219/tags/2.5/platform-independent/web-js/js
+END
+typedarray-polyfill.js
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/Lyndir/MasterPassword.git/!svn/ver/1219/tags/2.5/platform-independent/web-js/js/typedarray-polyfill.js
+END
+encoding-polyfill.js
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/Lyndir/MasterPassword.git/!svn/ver/1219/tags/2.5/platform-independent/web-js/js/encoding-polyfill.js
+END
+README.md
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/Lyndir/MasterPassword.git/!svn/ver/1219/tags/2.5/platform-independent/web-js/js/README.md
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/Lyndir/MasterPassword.git/!svn/ver/1219/tags/2.5/platform-independent/web-js/js/Makefile
+END
+setImmediate-polyfill.js
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/Lyndir/MasterPassword.git/!svn/ver/1219/tags/2.5/platform-independent/web-js/js/setImmediate-polyfill.js
+END
+main.js
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/Lyndir/MasterPassword.git/!svn/ver/1219/tags/2.5/platform-independent/web-js/js/main.js
+END
+dependencies.js
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/Lyndir/MasterPassword.git/!svn/ver/1219/tags/2.5/platform-independent/web-js/js/dependencies.js
+END
+promise-polyfill.js
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/Lyndir/MasterPassword.git/!svn/ver/1219/tags/2.5/platform-independent/web-js/js/promise-polyfill.js
+END
