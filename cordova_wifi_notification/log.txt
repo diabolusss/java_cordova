@@ -1,0 +1,28 @@
+03-25 09:10:00.869: D/dalvikvm(1346): GC_FOR_ALLOC freed 104K, 6% free 3066K/3228K, paused 3ms, total 3ms
+03-25 09:10:00.869: D/AndroidRuntime(1346): Shutting down VM
+03-25 09:10:00.869: W/dalvikvm(1346): threadid=1: thread exiting with uncaught exception (group=0xa4d4cb20)
+03-25 09:10:00.873: E/AndroidRuntime(1346): FATAL EXCEPTION: main
+03-25 09:10:00.873: E/AndroidRuntime(1346): Process: com.example.wifi_testapp1, PID: 1346
+03-25 09:10:00.873: E/AndroidRuntime(1346): java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.wifi_testapp1/com.example.wifi_testapp1.BlankActivity}: java.lang.SecurityException: Neither user 10060 nor current process has android.permission.READ_PHONE_STATE.
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2195)
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2245)
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	at android.app.ActivityThread.access$800(ActivityThread.java:135)
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1196)
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	at android.os.Handler.dispatchMessage(Handler.java:102)
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	at android.os.Looper.loop(Looper.java:136)
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	at android.app.ActivityThread.main(ActivityThread.java:5017)
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	at java.lang.reflect.Method.invokeNative(Native Method)
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	at java.lang.reflect.Method.invoke(Method.java:515)
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:779)
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:595)
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	at dalvik.system.NativeStart.main(Native Method)
+03-25 09:10:00.873: E/AndroidRuntime(1346): Caused by: java.lang.SecurityException: Neither user 10060 nor current process has android.permission.READ_PHONE_STATE.
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	at android.os.Parcel.readException(Parcel.java:1465)
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	at android.os.Parcel.readException(Parcel.java:1419)
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	at com.android.internal.telephony.ITelephonyRegistry$Stub$Proxy.listen(ITelephonyRegistry.java:233)
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	at android.telephony.TelephonyManager.listen(TelephonyManager.java:1279)
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	at com.example.wifi_testapp1.BlankActivity.onCreate(BlankActivity.java:75)
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	at android.app.Activity.performCreate(Activity.java:5231)
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1087)
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2159)
+03-25 09:10:00.873: E/AndroidRuntime(1346): 	... 11 more
